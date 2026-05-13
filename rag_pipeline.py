@@ -7,7 +7,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 #define here your api key
-api_key=""
+api_key="AIzaSyCb-0h3OfkB84VUrGbw_V2EuBrTv6gBygY"
 class EnhancedQuery(BaseModel):
     query:str=Field(description="expand the query")
 
@@ -34,7 +34,7 @@ class RAGPipeline:
         for text in text_recived:
 
             doc = Document(
-                page_content="Harshit Panchal is a backend developer specializing in Python, Django, FastAPI, and scalable API architectures. He has experience working with DevOps tools such as Docker, Kubernetes, Jenkins, Terraform, and AWS cloud services including EC2, S3, RDS, and EKS. Harshit has also worked on Retrieval-Augmented Generation (RAG) systems using vector databases like ChromaDB and embedding models from Gemini and OpenAI. His projects include document-based question answering systems, automated CI/CD deployment pipelines, and distributed microservices applications. In addition to backend engineering, he is interested in AI engineering, asynchronous programming, Redis caching, and production-level system design."
+                page_content=text
             )
             docs.append(doc)
         if docs:
@@ -65,26 +65,26 @@ class RAGPipeline:
 
 
 def run_benchmark():
-    dataset = ["""Load balancing is a key component of high-availability systems. It distributes incoming network traffic across multiple servers to ensure no single server becomes a bottleneck.
-        "Horizontal scaling involves adding more machines to your resource pool, whereas vertical scaling means adding more power (CPU, RAM) to an existing machine.
-        "System peak load is handled by an auto-scaling group that monitors CPU utilization and triggers new instance spinning when thresholds are exceeded.
-        "The caching layer, using Redis or Memcached, significantly reduces latency by storing frequently accessed data in memory, avoiding expensive database lookups.
-        "Database sharding is the process of storing a large database across multiple machines. This helps in scaling the data layer and improving query performance under heavy load.
-        "Microservices architecture allows teams to deploy services independently. Each service handles a specific business function and communicates via lightweight APIs.
-        "Continuous Integration and Continuous Deployment (CI/CD) pipelines automate the testing and deployment of code, ensuring rapid and reliable software releases.
-        "Health checks are vital for monitoring system status. If a service instance fails its health check, the load balancer stops routing traffic to it until it recovers.
-        "Rate limiting prevents abuse of APIs by restricting the number of requests a user can make within a certain timeframe.
-        "Read replicas improve database performance by offloading read traffic from the primary instance, allowing it to focus on write operations.""",]
+    dataset = [
+    "Artificial Intelligence is transforming the healthcare industry in many ways. Hospitals use AI-powered systems to detect diseases earlier and improve diagnosis accuracy.",
 
+    "Cloud computing allows companies and individuals to store and access data over the internet instead of relying on local computers.",
+
+    "Regular exercise is essential for maintaining good physical and mental health and helps reduce stress and anxiety.",
+
+    "E-commerce has changed the way people buy and sell products through online shopping platforms.",
+
+    "Renewable energy comes from natural sources such as solar, wind, and hydroelectric power."
+]
 
     pipeline = RAGPipeline()
     pipeline.ingest(dataset)
 
     queries = [
-        "How does the system handle peak load?",
-        "Ways to scale the database",
-        "Reducing latency and response times"
-    ]
+    "What is the main idea of the first paragraph?",
+    "How does technology improve modern life according to the paragraphs?",
+    "Why are health and environmental topics important?"
+]
 
     report = []
     for q in queries:
