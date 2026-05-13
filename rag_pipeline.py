@@ -1,4 +1,5 @@
 import chromadb
+import json
 from langchain_chroma import Chroma
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from pydantic import BaseModel,Field
@@ -27,10 +28,10 @@ class RAGPipeline:
         )
     def ingest(self,text_recived):
         docs=[]
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
-        texts = text_splitter.split_text(text_recived)
-        print("texts",texts)
-        for text in texts:
+        # text_splitter = RecursiveCharacterTextSplitter(chunk_size=100, chunk_overlap=0)
+        # texts = text_splitter.split_text(text_recived)
+        print("texts",text_recived)
+        for text in text_recived:
 
             doc = Document(
                 page_content="Harshit Panchal is a backend developer specializing in Python, Django, FastAPI, and scalable API architectures. He has experience working with DevOps tools such as Docker, Kubernetes, Jenkins, Terraform, and AWS cloud services including EC2, S3, RDS, and EKS. Harshit has also worked on Retrieval-Augmented Generation (RAG) systems using vector databases like ChromaDB and embedding models from Gemini and OpenAI. His projects include document-based question answering systems, automated CI/CD deployment pipelines, and distributed microservices applications. In addition to backend engineering, he is interested in AI engineering, asynchronous programming, Redis caching, and production-level system design."
@@ -64,7 +65,7 @@ class RAGPipeline:
 
 
 def run_benchmark():
-    dataset = """Load balancing is a key component of high-availability systems. It distributes incoming network traffic across multiple servers to ensure no single server becomes a bottleneck.
+    dataset = ["""Load balancing is a key component of high-availability systems. It distributes incoming network traffic across multiple servers to ensure no single server becomes a bottleneck.
         "Horizontal scaling involves adding more machines to your resource pool, whereas vertical scaling means adding more power (CPU, RAM) to an existing machine.
         "System peak load is handled by an auto-scaling group that monitors CPU utilization and triggers new instance spinning when thresholds are exceeded.
         "The caching layer, using Redis or Memcached, significantly reduces latency by storing frequently accessed data in memory, avoiding expensive database lookups.
@@ -73,7 +74,7 @@ def run_benchmark():
         "Continuous Integration and Continuous Deployment (CI/CD) pipelines automate the testing and deployment of code, ensuring rapid and reliable software releases.
         "Health checks are vital for monitoring system status. If a service instance fails its health check, the load balancer stops routing traffic to it until it recovers.
         "Rate limiting prevents abuse of APIs by restricting the number of requests a user can make within a certain timeframe.
-        "Read replicas improve database performance by offloading read traffic from the primary instance, allowing it to focus on write operations."""
+        "Read replicas improve database performance by offloading read traffic from the primary instance, allowing it to focus on write operations.""",]
 
 
     pipeline = RAGPipeline()
@@ -101,7 +102,7 @@ def run_benchmark():
 
 
 if __name__ == "__main__":
-    import json
+   
     results = run_benchmark()
     print("rresults",results)
-    print(json.dumps(results, indent=2))
+    print("############################### \n",json.dumps(results, indent=2))
